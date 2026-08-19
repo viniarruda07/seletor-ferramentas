@@ -264,6 +264,111 @@
             color: var(--text-muted);
             font-size: 15px;
         }
+
+        /* Botão de Adicionar (+) na Tabela */
+        .btn-add {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background-color: #242834;
+            border: 1px solid var(--card-border);
+            color: var(--accent-green);
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-add:hover {
+            background-color: var(--accent-green);
+            color: #fff;
+            border-color: var(--accent-green);
+            transform: scale(1.05);
+        }
+
+        /* Painel da Lista de Equipamentos (Side Drawer / Card) */
+        .equipment-list-panel {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .equipment-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .equipment-list-header h3 {
+            font-size: 16px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .equipment-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 40px;
+            align-items: center;
+        }
+
+        .equipment-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #242834;
+            border: 1px solid var(--card-border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-family: monospace;
+            color: #fff;
+        }
+
+        .equipment-chip .btn-remove {
+            background: none;
+            border: none;
+            color: var(--ir-red);
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .equipment-chip .btn-remove:hover {
+            color: #ff5252;
+        }
+
+        .empty-list-msg {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .btn-clear-list {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-clear-list:hover {
+            color: #fff;
+            border-color: var(--ir-red);
+            background-color: var(--ir-red);
+        }
     </style>
 </head>
 <body>
@@ -318,6 +423,17 @@
                 <div class="family-spec-item"><span>Alimentação:</span> <span>Fonte / Cabo com Controlador INSIGHTi</span></div>
                 <div class="family-spec-item"><span>Recurso Exclusivo:</span> <span>Controle de Ângulo de Inclinação (Tilt 5°)</span></div>
             </div>
+        </div>
+    </div>
+
+    <!-- Lista de Equipamentos Selecionados -->
+    <div class="equipment-list-panel">
+        <div class="equipment-list-header">
+            <h3>Lista de Equipamentos Selecionados (<span id="selectedCount">0</span>)</h3>
+            <button class="btn-clear-list" onclick="clearEquipmentList()">Limpar Lista</button>
+        </div>
+        <div class="equipment-items" id="equipmentList">
+            <span class="empty-list-msg">Nenhum equipamento adicionado. Clique no botão "+" na tabela para adicionar.</span>
         </div>
     </div>
 
@@ -396,6 +512,7 @@
         <table>
             <thead>
                 <tr>
+                    <th style="width: 50px; text-align: center;">Add</th>
                     <th>Modelo / Código</th>
                     <th>Família</th>
                     <th>Formato</th>
@@ -418,8 +535,9 @@
 </div>
 
 <script>
-// Variável global para armazenar o banco de dados dinâmico
+// Variáveis globais
 let toolsData = [];
+let selectedEquipments = [];
 
 // Função que carrega e normaliza os dados do arquivo JSON externo
 async function loadToolsDatabase() {
@@ -431,7 +549,6 @@ async function loadToolsDatabase() {
         
         let rawData = await response.json();
         
-        // Tratamento para extrair a lista independentemente da estrutura do JSON
         let itemsList = [];
         if (Array.isArray(rawData)) {
             itemsList = rawData;
@@ -443,32 +560,24 @@ async function loadToolsDatabase() {
             });
         }
 
-        // Mapeamento normalizado para garantir compatibilidade com as funções de filtro/tabela
         toolsData = itemsList.map(item => {
-            // Mapeamento do modelo/código
             const model = item.model || item.modelo || item.modelo_codigo || item.codigo || "N/A";
             
-            // Mapeamento da família
             let family = item.family || item.familia || "QX";
             if (family.toUpperCase().includes("RTS")) family = "RTS";
             else if (family.toUpperCase().includes("IQI")) family = "IQI";
             else family = "QX";
 
-            // Mapeamento do formato
             const format = item.format || item.formato || "Pistol";
 
-            // Mapeamento dos valores de torque
             const torqueMin = parseFloat(item.torqueMin ?? item.torque_min_nm ?? item.torque_min ?? 0);
             const torqueMax = parseFloat(item.torqueMax ?? item.torque_max_nm ?? item.torque_max ?? 0);
 
-            // Mapeamento do RPM
             const rpm = item.rpm ?? item.rpmMax ?? item.rpm_max ?? 0;
 
-            // Mapeamento de encaixe e alimentação
             const drive = item.drive || item.encaixe_drive || item.encaixe || "N/A";
             const power = item.power || item.tensao_alimentacao || item.tensao || item.alimentacao || "N/A";
 
-            // Mapeamento da tecnologia de controle
             let tech = item.tech || item.tecnologia_controle || item.tecnologia || "";
             if (tech.toLowerCase().includes("rts") || tech.toLowerCase().includes("algoritmo")) {
                 tech = "RTS-Algorithm";
@@ -478,7 +587,6 @@ async function loadToolsDatabase() {
                 tech = "Transducer";
             }
 
-            // Mapeamento de recursos e comunicação
             let features = item.features || item.recursos_comunicacao || item.recursos || item.comunicacao || [];
             if (!Array.isArray(features)) {
                 features = [String(features)];
@@ -501,7 +609,7 @@ async function loadToolsDatabase() {
             };
         });
 
-        filterTools(); // Renderiza a tabela inicial com os dados carregados
+        filterTools();
     } catch (error) {
         console.error("Falha ao carregar o banco de dados de ferramentas:", error);
         const noResults = document.getElementById("noResults");
@@ -543,6 +651,9 @@ function renderTable(data) {
         let featurePills = item.features ? item.features.map(f => `<span class="tech-pill">${f}</span>`).join("") : "";
 
         tr.innerHTML = `
+            <td style="text-align: center;">
+                <button class="btn-add" onclick="addEquipment('${item.model}')" title="Adicionar à lista">+</button>
+            </td>
             <td class="model-name">${item.model}</td>
             <td>${familyTag}</td>
             <td>${item.format}</td>
@@ -588,6 +699,46 @@ function filterTools() {
     });
 
     renderTable(filtered);
+}
+
+// Adiciona um equipamento à lista
+function addEquipment(code) {
+    if (!selectedEquipments.includes(code)) {
+        selectedEquipments.push(code);
+        updateEquipmentListUI();
+    }
+}
+
+// Remove um equipamento da lista
+function removeEquipment(code) {
+    selectedEquipments = selectedEquipments.filter(item => item !== code);
+    updateEquipmentListUI();
+}
+
+// Limpa toda a lista
+function clearEquipmentList() {
+    selectedEquipments = [];
+    updateEquipmentListUI();
+}
+
+// Atualiza a interface da lista de equipamentos
+function updateEquipmentListUI() {
+    const listContainer = document.getElementById("equipmentList");
+    const countDisplay = document.getElementById("selectedCount");
+
+    countDisplay.textContent = selectedEquipments.length;
+
+    if (selectedEquipments.length === 0) {
+        listContainer.innerHTML = '<span class="empty-list-msg">Nenhum equipamento adicionado. Clique no botão "+" na tabela para adicionar.</span>';
+        return;
+    }
+
+    listContainer.innerHTML = selectedEquipments.map(code => `
+        <div class="equipment-chip">
+            <span>${code}</span>
+            <button class="btn-remove" onclick="removeEquipment('${code}')" title="Remover">&times;</button>
+        </div>
+    `).join("");
 }
 
 // Inicia o carregamento dinâmico assim que a página é aberta
