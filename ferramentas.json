@@ -1,0 +1,41 @@
+[
+  {
+    "model": "RTS025PQ4",
+    "family": "RTS",
+    "format": "Pistol",
+    "torqueMin": 8.0,
+    "torqueMax": 25.0,
+    "rpm": 1500,
+    "drive": "1/4 QC",
+    "power": "20V (IQV20)",
+    "tech": "RTS-Algorithm",
+    "comm": "USB/BT/Wi-Fi",
+    "features": ["40 Níveis Torque", "7 Flush Levels", "Reactionless", "LCD Display"]
+  },
+  {
+    "model": "QXFD2PT004PQ04",
+    "family": "QX",
+    "format": "Pistol",
+    "torqueMin": 0.8,
+    "torqueMax": 4.0,
+    "rpm": 1500,
+    "drive": "1/4 QC",
+    "power": "20V (IQV20)",
+    "tech": "Transducer",
+    "comm": "USB",
+    "features": ["QXF", "Display", "32 Psets", "Closed Loop"]
+  },
+  {
+    "model": "IQI2LT0017TQ4",
+    "family": "IQI",
+    "format": "Straight",
+    "torqueMin": 0.02,
+    "torqueMax": 0.17,
+    "rpm": 1500,
+    "drive": "1/4 QC",
+    "power": "Cabo (IQI-PS-1)",
+    "tech": "Transducer",
+    "comm": "USB",
+    "features": ["Transdutorizada", "Precisão ±3.5%", "Tilt Angle Control (5°)", "Gatilho"]
+  }
+]
