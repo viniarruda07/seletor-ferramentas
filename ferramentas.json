@@ -1,167 +1,132 @@
-{
-  "familias_de_ferramentas": {
-    "QX_Series": {
-      "descricao": "Sistemas de aperto de precisão à bateria com controle de malha fechada via transdutor",
-      "modelos_e_plataformas": [
-        "QXF (Sem comunicação sem fio, programação via USB)",
-        "QXB (Comunicação Bluetooth, programação via app)",
-        "QXX (Comunicação Zigbee/Bluetooth para controle de linha/MES)",
-        "QXW Limitless (Dual Band Wi-Fi 2.4/5GHz + Zigbee + Bluetooth)",
-        "QX ETS (Ergonomic Tightening System - redução de reação de torque)",
-        "QXM (Multiplicador de Torque 20V/40V para altos torques)"
-      ],
-      "variaveis": {
-        "linha": "QX",
-        "tecnologia_controle": "Transdutorizado em malha fechada",
-        "faixa_torque": {
-          "padrao": "0.8 - 80 Nm",
-          "multiplicador_qxm": "Até 4000 Nm"
-        },
-        "modos_aperto_estrategias": [
-          "Torque",
-          "Ângulo",
-          "Gang Count (Contagem de ciclos)",
-          "ETS Modes (Ergonomic, Performance, Productivity)"
-        ],
-        "opcoes_interface_display": [
-          "Com Display (D)",
-          "Sem Display (N)"
-        ],
-        "configuracoes_fisicas": [
-          "Pistol (Pistola)",
-          "Angle Wrench (Angular)"
-        ],
-        "opcoes_encaixe_drive": [
-          "1/4\" Quick-Change (PQ/TQ)",
-          "1/4\" Square Drive (PS)",
-          "3/8\" Square Drive (PS)",
-          "1/2\" Square Drive (PS)",
-          "3/4\" Square Drive (Multiplicadores)",
-          "1\" Square Drive (Multiplicadores)"
-        ],
-        "psets_programaveis": 32,
-        "capacidade_memoria_dados": "1200 ciclos de dados",
-        "plataformas_bateria": [
-          "IQV20 (20V)",
-          "IQV40 (40V)"
-        ],
-        "conectividade_e_comunicacao": [
-          "USB",
-          "Bluetooth (BLE)",
-          "Zigbee",
-          "WLAN/Wi-Fi Dual Band (2.4GHz e 5GHz)"
-        ],
-        "autenticacao_seguranca": [
-          "WPA/WPA2",
-          "EAP-TLS",
-          "EAP-TTLS",
-          "PEAP"
-        ],
-        "controladores_e_apps_compativeis": [
-          "INSIGHT Connect App (iOS / Android)",
-          "INSIGHTQCX Cordless Controller (MTC - até 10 ferramentas)"
-        ]
-      }
-    },
-    "RTS_Connect": {
-      "descricao": "Sistema de aperto de resposta rápida com controle por contagem de pulsos/corrente e eliminação de reação de torque",
-      "modelos": [
-        "RTS025",
-        "RTS060",
-        "RTS140",
-        "RTS225"
-      ],
-      "variaveis": {
-        "linha": "RTS Connect",
-        "tecnologia_controle": "Algoritmo proprietário monitorando pulsos de energia e corrente do motor (10.000 amostras/seg)",
-        "faixa_torque": "8 - 225 Nm (70 - 2000 in-lbs)",
-        "niveis_de_torque_programaveis": 40,
-        "niveis_de_assentamento_flush": 7,
-        "psets_programaveis": 8,
-        "capacidade_memoria_dados": "1200 resultados de ciclos",
-        "recursos_avancados_prevencao_erros": [
-          "Rehit Detection Mode (Detecção de reaperto/rosca espanada)",
-          "Rehit Prevention (Bloqueio por tempo entre apertos)",
-          "Cross-Thread Reduction (Anti-rosca cruzada com 2 voltas reversas)",
-          "Soft-Start (Partida suave)",
-          "Flush Detection Delay (Atraso de detecção de assentamento)",
-          "Reverse Disable (Desabilitação de reversão)",
-          "One Speed (Velocidade máxima constante)"
-        ],
-        "opcoes_encaixe_drive": [
-          "1/4\" Hex Quick-Change (PQ4)",
-          "3/8\" Square Pin Detent (PS6)",
-          "3/8\" Square Hog Ring/Thru Hole (PH6)",
-          "1/2\" Square Pin Detent (PS8)",
-          "1/2\" Square Hog Ring/Thru Hole (PH8)"
-        ],
-        "plataforma_bateria": "IQV20 (20V - 2.5Ah / 5.0Ah)",
-        "conectividade_e_comunicacao": [
-          "USB-C",
-          "Bluetooth",
-          "Wi-Fi (2.4GHz e 5GHz)",
-          "Radio 802.15.4 IEEE"
-        ],
-        "indicadores_visuais": [
-          "Anel LED 360° multicolorido (Vermelho, Verde, Branco)",
-          "Display LCD colorido com botões de navegação"
-        ],
-        "controladores_e_apps_compativeis": [
-          "INSIGHT Connect App",
-          "INSIGHTqcx MTC Controller (Até 16 ferramentas RTS conectadas)"
-        ]
-      }
-    },
-    "IQi_Series": {
-      "descricao": "Parafusadeiras eletrônicas de precisão para aplicações em baixo torque com cabo",
-      "modelos_plataformas": [
-        "Transdutorizada (IQI2LT / IQI4LT / IQI12LT / IQI14LT)",
-        "Controle por Corrente (IQI2LC / IQI4LC / IQI12LC / IQI14LC)"
-      ],
-      "variaveis": {
-        "linha": "IQi Series",
-        "tecnologia_controle": [
-          "Transdutorizada (Precisão de ±3.5%)",
-          "Controle por Corrente (Precisão de ±7%)"
-        ],
-        "faixa_torque": {
-          "corpo_pequeno": "0.02 - 2.5 Nm",
-          "corpo_medio": "2 - 15 Nm"
-        },
-        "modos_ativação": [
-          "Gatilho (Lever Start - TQ4/TM4)",
-          "Push to Start / Gatilho (PQ4/PM4)"
-        ],
-        "opcoes_encaixe_drive": [
-          "1/4\" Quick Change (QC)",
-          "Half Moon (Encaixe Meia-Lua - TM4/PM4)"
-        ],
-        "psets_programaveis": 32,
-        "jobs_programaveis": 64,
-        "capacidade_memoria_dados": "Até 1.000.000 de registros de aperto",
-        "durabilidade": "Mais de 1.000.000 de ciclos sem manutenção",
-        "recursos_avancados": [
-          "Controle de Ângulo de Inclinação (Tilt Angle Control até 5°)",
-          "iQ Stop (Modo avançado de shiftdown sem pausas)",
-          "Estratégias de Torque, Ângulo, Prevailing Torque e Torque de Assentamento",
-          "Anel LED 360° e proteção ESD integrada"
-        ],
-        "fontes_alimentacao_compativeis": [
-          "IQI-PS-1 (200W)",
-          "IQI-PS-2 (400W)"
-        ],
-        "controlador": {
-          "modelo": "INSIGHTqi (IQI11-FM)",
-          "hardware": "Tela sensível ao toque de 7\", SSD removível, Portas Ethernet, USB 2.0/3.0, RS232 e I/O Digital (7x5)",
-          "interface": "Navegador Web (Web-Based sem necessidade de software PC)",
-          "protocolos_suportados": [
-            "Open Protocol",
-            "ToolsNet",
-            "Ethernet IP",
-            "Profinet"
-          ]
-        }
-      }
-    }
+[
+  {
+    "modelo_codigo": "RTS025PQ4",
+    "familia": "RTS",
+    "formato": "Pistol",
+    "faixa_torque_nm": "8.00 - 25.0 Nm",
+    "torque_min_nm": 8.0,
+    "torque_max_nm": 25.0,
+    "rpm_max": 1500,
+    "encaixe_drive": "1/4 QC",
+    "tensao_alimentacao": "20V (IQV20)",
+    "tecnologia_controle": "Algoritmo RTS",
+    "recursos_comunicacao": ["40 Níveis Torque", "7 Flush Levels", "Reactionless", "LCD Display", "Wi-Fi Dual Band", "Bluetooth"]
+  },
+  {
+    "modelo_codigo": "RTS060PQ4",
+    "familia": "RTS",
+    "formato": "Pistol",
+    "faixa_torque_nm": "18.0 - 60.0 Nm",
+    "torque_min_nm": 18.0,
+    "torque_max_nm": 60.0,
+    "rpm_max": 1200,
+    "encaixe_drive": "1/4 QC",
+    "tensao_alimentacao": "20V (IQV20)",
+    "tecnologia_controle": "Algoritmo RTS",
+    "recursos_comunicacao": ["40 Níveis Torque", "7 Flush Levels", "Reactionless", "LCD Display", "Wi-Fi Dual Band"]
+  },
+  {
+    "modelo_codigo": "RTS140PS6",
+    "familia": "RTS",
+    "formato": "Pistol",
+    "faixa_torque_nm": "40.0 - 140.0 Nm",
+    "torque_min_nm": 40.0,
+    "torque_max_nm": 140.0,
+    "rpm_max": 800,
+    "encaixe_drive": "3/8 Square",
+    "tensao_alimentacao": "20V (IQV20)",
+    "tecnologia_controle": "Algoritmo RTS",
+    "recursos_comunicacao": ["40 Níveis Torque", "Reactionless", "LCD Display", "Wi-Fi Dual Band"]
+  },
+  {
+    "modelo_codigo": "QXFD2PT004PQ04",
+    "familia": "QX",
+    "formato": "Pistol",
+    "faixa_torque_nm": "0.80 - 4.0 Nm",
+    "torque_min_nm": 0.8,
+    "torque_max_nm": 4.0,
+    "rpm_max": 1500,
+    "encaixe_drive": "1/4 QC",
+    "tensao_alimentacao": "20V (IQV20)",
+    "tecnologia_controle": "Transdutorizada",
+    "recursos_comunicacao": ["QXF", "Display", "32 Psets", "Closed Loop", "USB"]
+  },
+  {
+    "modelo_codigo": "QXBD2PT008PQ04",
+    "familia": "QX",
+    "formato": "Pistol",
+    "faixa_torque_nm": "1.60 - 8.0 Nm",
+    "torque_min_nm": 1.6,
+    "torque_max_nm": 8.0,
+    "rpm_max": 1150,
+    "encaixe_drive": "1/4 QC",
+    "tensao_alimentacao": "20V (IQV20)",
+    "tecnologia_controle": "Transdutorizada",
+    "recursos_comunicacao": ["QXB", "Display", "Bluetooth", "32 Psets", "INSIGHT Connect"]
+  },
+  {
+    "modelo_codigo": "QXWD2PT018PS06",
+    "familia": "QX",
+    "formato": "Pistol",
+    "faixa_torque_nm": "3.60 - 18.0 Nm",
+    "torque_min_nm": 3.6,
+    "torque_max_nm": 18.0,
+    "rpm_max": 500,
+    "encaixe_drive": "3/8 Square",
+    "tensao_alimentacao": "20V (IQV20)",
+    "tecnologia_controle": "Transdutorizada",
+    "recursos_comunicacao": ["QXW", "Limitless", "Dual Band Wi-Fi", "Display", "32 Psets"]
+  },
+  {
+    "modelo_codigo": "QXETS2PT012PQ04",
+    "familia": "QX",
+    "formato": "Pistol",
+    "faixa_torque_nm": "2.40 - 12.0 Nm",
+    "torque_min_nm": 2.4,
+    "torque_max_nm": 12.0,
+    "rpm_max": 750,
+    "encaixe_drive": "1/4 QC",
+    "tensao_alimentacao": "20V (IQV20)",
+    "tecnologia_controle": "Transdutorizada",
+    "recursos_comunicacao": ["QX ETS", "Ergonomic Mode", "Display", "Bluetooth", "32 Psets"]
+  },
+  {
+    "modelo_codigo": "IQI2LT0017TQ4",
+    "familia": "IQI",
+    "formato": "Straight",
+    "faixa_torque_nm": "0.02 - 0.2 Nm",
+    "torque_min_nm": 0.02,
+    "torque_max_nm": 0.2,
+    "rpm_max": 1500,
+    "encaixe_drive": "1/4 QC",
+    "tensao_alimentacao": "Cabo (IQI-PS-1)",
+    "tecnologia_controle": "Transdutorizada",
+    "recursos_comunicacao": ["Transdutorizada", "Precisão ±3.5%", "Tilt Angle Control (5°)", "Gatilho"]
+  },
+  {
+    "modelo_codigo": "IQI4LT008TQ4",
+    "familia": "IQI",
+    "formato": "Straight",
+    "faixa_torque_nm": "0.15 - 0.8 Nm",
+    "torque_min_nm": 0.15,
+    "torque_max_nm": 0.8,
+    "rpm_max": 1200,
+    "encaixe_drive": "1/4 QC",
+    "tensao_alimentacao": "Cabo (IQI-PS-1)",
+    "tecnologia_controle": "Transdutorizada",
+    "recursos_comunicacao": ["Transdutorizada", "Precisão ±3.5%", "Tilt Angle Control (5°)", "Gatilho", "iQ Stop"]
+  },
+  {
+    "modelo_codigo": "IQI12LC025PM4",
+    "familia": "IQI",
+    "formato": "Straight",
+    "faixa_torque_nm": "0.50 - 2.5 Nm",
+    "torque_min_nm": 0.5,
+    "torque_max_nm": 2.5,
+    "rpm_max": 1000,
+    "encaixe_drive": "Half Moon",
+    "tensao_alimentacao": "Cabo (IQI-PS-2)",
+    "tecnologia_controle": "Controle por Corrente",
+    "recursos_comunicacao": ["Corrente", "Precisão ±7%", "Push to Start", "Proteção ESD"]
   }
-}
+]
