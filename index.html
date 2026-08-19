@@ -421,14 +421,86 @@
 // Variável global para armazenar o banco de dados dinâmico
 let toolsData = [];
 
-// Função que carrega os dados do arquivo JSON externo
+// Função que carrega e normaliza os dados do arquivo JSON externo
 async function loadToolsDatabase() {
     try {
         const response = await fetch('ferramentas.json');
         if (!response.ok) {
             throw new Error(`Erro ao carregar o arquivo JSON: status ${response.status}`);
         }
-        toolsData = await response.json();
+        
+        let rawData = await response.json();
+        
+        // Tratamento para extrair a lista independentemente da estrutura do JSON
+        let itemsList = [];
+        if (Array.isArray(rawData)) {
+            itemsList = rawData;
+        } else if (rawData.familias_de_ferramentas) {
+            Object.values(rawData.familias_de_ferramentas).forEach(fam => {
+                if (fam.modelos && Array.isArray(fam.modelos)) {
+                    itemsList.push(...fam.modelos);
+                }
+            });
+        }
+
+        // Mapeamento normalizado para garantir compatibilidade com as funções de filtro/tabela
+        toolsData = itemsList.map(item => {
+            // Mapeamento do modelo/código
+            const model = item.model || item.modelo || item.modelo_codigo || item.codigo || "N/A";
+            
+            // Mapeamento da família
+            let family = item.family || item.familia || "QX";
+            if (family.toUpperCase().includes("RTS")) family = "RTS";
+            else if (family.toUpperCase().includes("IQI")) family = "IQI";
+            else family = "QX";
+
+            // Mapeamento do formato
+            const format = item.format || item.formato || "Pistol";
+
+            // Mapeamento dos valores de torque
+            const torqueMin = parseFloat(item.torqueMin ?? item.torque_min_nm ?? item.torque_min ?? 0);
+            const torqueMax = parseFloat(item.torqueMax ?? item.torque_max_nm ?? item.torque_max ?? 0);
+
+            // Mapeamento do RPM
+            const rpm = item.rpm ?? item.rpmMax ?? item.rpm_max ?? 0;
+
+            // Mapeamento de encaixe e alimentação
+            const drive = item.drive || item.encaixe_drive || item.encaixe || "N/A";
+            const power = item.power || item.tensao_alimentacao || item.tensao || item.alimentacao || "N/A";
+
+            // Mapeamento da tecnologia de controle
+            let tech = item.tech || item.tecnologia_controle || item.tecnologia || "";
+            if (tech.toLowerCase().includes("rts") || tech.toLowerCase().includes("algoritmo")) {
+                tech = "RTS-Algorithm";
+            } else if (tech.toLowerCase().includes("corrente") || tech.toLowerCase().includes("current")) {
+                tech = "Current";
+            } else {
+                tech = "Transducer";
+            }
+
+            // Mapeamento de recursos e comunicação
+            let features = item.features || item.recursos_comunicacao || item.recursos || item.comunicacao || [];
+            if (!Array.isArray(features)) {
+                features = [String(features)];
+            }
+
+            let commStr = item.comm ? (Array.isArray(item.comm) ? item.comm.join(" ") : String(item.comm)) : features.join(" ");
+
+            return {
+                model,
+                family,
+                format,
+                torqueMin,
+                torqueMax,
+                rpm,
+                drive,
+                power,
+                tech,
+                features,
+                comm: commStr
+            };
+        });
+
         filterTools(); // Renderiza a tabela inicial com os dados carregados
     } catch (error) {
         console.error("Falha ao carregar o banco de dados de ferramentas:", error);
@@ -501,10 +573,11 @@ function filterTools() {
         if (control !== "ALL" && item.tech !== control) return false;
         
         if (comm !== "ALL") {
-            if (comm === "USB" && !item.comm.includes("USB")) return false;
-            if (comm === "Bluetooth" && !item.comm.includes("BT") && !item.comm.includes("Bluetooth")) return false;
-            if (comm === "Zigbee" && !item.comm.includes("Zigbee")) return false;
-            if (comm === "Wi-Fi" && !item.comm.includes("Wi-Fi")) return false;
+            const commUpper = item.comm.toUpperCase();
+            if (comm === "USB" && !commUpper.includes("USB")) return false;
+            if (comm === "Bluetooth" && !commUpper.includes("BT") && !commUpper.includes("BLUETOOTH")) return false;
+            if (comm === "Zigbee" && !commUpper.includes("ZIGBEE")) return false;
+            if (comm === "Wi-Fi" && !commUpper.includes("WI-FI") && !commUpper.includes("WIFI")) return false;
         }
 
         if (!isNaN(reqTorque)) {
